@@ -1,0 +1,18 @@
+.brand {
+  background: #cbb09c !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.brand:hover {
+  opacity: 0.7;
+}
+
+.brand-text {
+  color: #cbb09c !important;
+}
+
+form {
+  max-width: 460px;
+  margin: 20px auto;
+  padding: 20px;
+}
