@@ -1,5 +1,8 @@
 <?php
 
+// Connect to database
+include('./config/db_connect.php');
+
 $email = $title = $ingredients = '';
 $errors = array('email' => '', 'title' => '', 'ingredients' => '');
 
@@ -34,7 +37,21 @@ if (isset($_POST['submit'])) {
   }
 
   if (!array_filter($errors)) {
-    header('location: index.php');
+
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $title = mysqli_real_escape_string($conn, $_POST['title']);
+    $ingredients = mysqli_real_escape_string($conn, $_POST['ingredients']);
+
+    // create sql
+    $sql = "INSERT INTO pizza(title, email, ingredients) VALUES('$title', '$email', '$ingredients')";
+
+    // save to db and check
+    if (mysqli_query($conn, $sql)) {
+      // success
+      header('location: index.php');
+    } else {
+      echo 'query error: ' . mysqli_error($conn);
+    }
   }
 }
 
@@ -49,7 +66,7 @@ if (isset($_POST['submit'])) {
 
 <section class="container grey-text">
   <h4 class="center">Add a Pizza</h4>
-  <form class="white" action="add.php" method="POST">
+  <form class="white" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
     <!-- email -->
     <label>Your Email:</label>
     <input type="text" name='email' value="<?php echo htmlspecialchars($email) ?>" />

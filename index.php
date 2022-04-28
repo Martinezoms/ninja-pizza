@@ -1,11 +1,7 @@
 <?php
-// Connect to database
-$conn = mysqli_connect('localhost', 'zoms', 'angelina', 'ninja_pizza');
 
-// Check connection
-if (!$conn) {
-  echo 'connection error: ' . mysqli_connect_error();
-}
+// connect to database
+include('./config/db_connect.php');
 
 // Write query for all pizza
 $sql = 'SELECT * FROM pizza ORDER BY created_at';
@@ -40,6 +36,7 @@ mysqli_close($conn);
     foreach ($pizzas as $pizza) : ?>
       <div class="col s6 md3">
         <div class="card z-depth-0">
+          <img src="./img/pizza.svg" alt="" class="pizza">
           <div class="card-content center">
             <h6><?php echo htmlspecialchars($pizza['title']) ?></h6>
             <ul>
@@ -49,7 +46,7 @@ mysqli_close($conn);
             </ul>
           </div>
           <div class="card-action right-align">
-            <a class="brand-text" href="#">More info</a>
+            <a class="brand-text" href="details.php?id=<?php echo $pizza['id'] ?>">More info</a>
           </div>
         </div>
       </div>
