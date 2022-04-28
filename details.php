@@ -7,7 +7,6 @@ include('./config/db_connect.php');
 // check POST request
 if (isset($_POST['delete'])) {
   $id_to_delete = mysqli_real_escape_string($conn, $_POST['id_to_delete']);
-  echo $id_to_delete;
 
   $sql = "DELETE FROM pizza WHERE id = $id_to_delete";
 
